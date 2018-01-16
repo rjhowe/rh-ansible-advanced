@@ -1,0 +1,11 @@
+---
+- name: Add app hosts to variable
+  hosts: all
+  become: true
+  tasks:
+  - name: get and display
+    debug:
+      msg: "{{ item }}"
+    with_inventory_hostnames:
+      - apps
+    register: app_hostnames

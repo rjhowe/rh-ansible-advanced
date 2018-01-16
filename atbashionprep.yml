@@ -1,0 +1,16 @@
+---
+- name: Install Packages on Bastion Host for prep
+  gather_facts: false 
+  hosts: bastion
+  tasks:
+  - name: Install Packages 
+    package: 
+      name: "{{ item  }}"
+      state: latest 
+    with_items:
+      - python-devel
+      - krb5-devel 
+      - krb5-libs
+      - krb5-workstation 
+      - python-pip
+      - gcc

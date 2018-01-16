@@ -1,0 +1,29 @@
+---
+# This role will install Active Directory on Windows 2012 
+# Domain Name:  ad1.${guid}.example.opentlc.com
+# AD Safe Password: Get from /etc/ansible/hosts
+# :wAD Admin User: admin@ad1.${guid}.example.opentlc.com
+
+- block:
+  - name: Install AD  
+    win_feature:  
+      name: AD-Domain-Services
+      include_management_tools: yes
+      include_sub_features: yes
+      state: present
+
+  - name: Win Domain
+    win_domain: 
+      dns_domain_name: "ad1.{{ GUID }}.example.opentlc.com" 
+      safe_mode_password: "{{ ansible_password }}"
+
+- name: Reboot 
+  win_reboot: 
+    restart: true
+  when: reboot_required == true 
+
+- name: Print domain list
+  shell: "nltest /dclist:{{ ad_domain_name}}" 
+  register: ad_domain_list 
+  debug: ad_domiain_list 
+
