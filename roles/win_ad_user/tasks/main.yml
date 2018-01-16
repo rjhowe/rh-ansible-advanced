@@ -1,0 +1,21 @@
+- name: debug 
+  check_mode: yes
+  debug: 
+    var: "{{ item }}"
+#  debug: 
+#    var: "{{ item.First_Name }}"
+#  debug: "{{ item.Last_Name }}"
+#  debug: "{{ item.Password }}"
+#  debug: "{{ item.Email }}"
+  with_items:
+  - "{{ user_info }}"
+
+- name: Add Users
+  win_domain_user: 
+    name: "{{ item }}"
+    firstname: "{{ item.First_Name }}"
+    lastname: "{{ item.Last_Name }}"
+    password: "{{ item.Password }}"
+    email: "{{ item.Email }}" 
+  with_items: 
+  - "{{ user_info }}" 

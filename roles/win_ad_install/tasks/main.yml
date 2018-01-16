@@ -4,26 +4,27 @@
 # AD Safe Password: Get from /etc/ansible/hosts
 # :wAD Admin User: admin@ad1.${guid}.example.opentlc.com
 
-- block:
-  - name: Install AD  
-    win_feature:  
-      name: AD-Domain-Services
-      include_management_tools: yes
-      include_sub_features: yes
-      state: present
+- name: Install AD  
+  win_feature:  
+    name: AD-Domain-Services
+    include_management_tools: yes
+    include_sub_features: yes
+    state: present
+  register: win_feature_task
 
-  - name: Win Domain
-    win_domain: 
-      dns_domain_name: "ad1.{{ GUID }}.example.opentlc.com" 
-      safe_mode_password: "{{ ansible_password }}"
+- name: Win Domain
+  win_domain: 
+    dns_domain_name: "ad1.{{ GUID }}.example.opentlc.com" 
+    safe_mode_password: "{{ ansible_password }}"
+  register: win_domain_task
 
 - name: Reboot 
   win_reboot: 
     restart: true
-  when: reboot_required == true 
+  when: win_feature_task.reboot_required == true or win_domain_task.reboot_required == true 
 
-- name: Print domain list
-  shell: "nltest /dclist:{{ ad_domain_name}}" 
-  register: ad_domain_list 
-  debug: ad_domiain_list 
+#- name: Print domain list
+#  shell: "nltest /dclist:{{ ad_domain_name}}" 
+#  register: ad_domain_list 
+#  debug: ad_domiain_list 
 

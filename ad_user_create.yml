@@ -1,0 +1,8 @@
+---
+- name: Add User to AD
+  become: true
+  hosts: windows
+  roles: 
+  - win_ad_user
+  vars_files:
+  - user_info.yml

@@ -1,0 +1,9 @@
+- name: SSH server setup
+  hosts: windows
+  become: true 
+  roles: 
+   - role: win_package_install
+     role: win_service_manage
+     role: win_firewall
+  vars_files: 
+   - ssh_var.yml 
