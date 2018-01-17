@@ -1,14 +1,12 @@
 - name: Open windows firewall ports
   win_firewall_rule:
-    name: "{{ item.0 }}"
-    localport: "{{ item.1 }}"
+    name: "{{ item.service_name }}"
+    localport: "{{ item.local_port }}"
     action: allow
     direction: in
-    protocol: "{{ item.2 }}"
+    protocol: "{{ item.protocol_name }}"
     state: present
     enabled: yes 
-  with_nested:
-  - "{{ service_name }}"
-  - "{{ local_port }}"
-  - "{{ protocol_name }}" 
+  with_items:
+  - "{{ service }}" 
   when: ansible_distribution == 'Microsoft Windows Server 2012 R2 Standard'

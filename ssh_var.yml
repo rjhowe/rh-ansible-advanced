@@ -1,5 +1,3 @@
 package_name: openssh
-parameters: /SSHServerFeature
-service_name: SSHD
-local_port: 22
-protocol_name: tcp
+service:
+  - { service_name: SSHD, package_name: openssh, local_port: 22, protocol_name: tcp, parameters: /SSHServerFeature}

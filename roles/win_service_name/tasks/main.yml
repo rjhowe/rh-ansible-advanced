@@ -1,7 +1,7 @@
 - name: Start Windows Service 
   win_service:
-   name: "{{ item }}"
+   name: "{{ item.service_name }}"
    state: started 
   with_items: 
-  - "{{ service_name }}"
+  - "{{ service }}"
   when: ansible_distribution == 'Microsoft Windows Server 2012 R2 Standard'
