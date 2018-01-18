@@ -1,0 +1,7 @@
+---
+cloud_name: ospcloud
+cloud_network: 
+  - cloud_name: "ospcloud" 
+    
+    cidr: "10.10.10.0/24"
+    routes: 

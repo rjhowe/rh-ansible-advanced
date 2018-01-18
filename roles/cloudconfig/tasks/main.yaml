@@ -1,0 +1,7 @@
+- name: Create Directory for clouds.yaml
+  command: mkdir /etc/openstack
+
+- name: Copy clouds.yaml file to jumpbox
+  copy: 
+    src: clouds.yaml
+    dst: /etc/openstack/clouds.yaml

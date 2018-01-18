@@ -1,16 +1,28 @@
 ---
+- name: enable epel 
+  
+  roles:
+    - geerlingguy.repo-epl  
+
 - name: Install Packages on Bastion Host for prep
   gather_facts: false 
   hosts: bastion
+  become: true
   tasks:
   - name: Install Packages 
     package: 
       name: "{{ item  }}"
       state: latest 
     with_items:
+      - ansible 
       - python-devel
       - krb5-devel 
       - krb5-libs
       - krb5-workstation 
       - python-pip
       - gcc
+      - vim 
+
+- name: Add cloud.yaml file 
+  roles: 
+    - cloudconfig 
