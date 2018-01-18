@@ -1,21 +1,21 @@
 - name: debug 
   check_mode: yes
-  debug: 
-    var: "{{ item }}"
-#  debug: 
-#    var: "{{ item.First_Name }}"
-#  debug: "{{ item.Last_Name }}"
-#  debug: "{{ item.Password }}"
-#  debug: "{{ item.Email }}"
+  debug:
+   var: "{{ item.First_Name }}"
+  debug:
+   var: "{{ item.Last_Name }}"
   with_items:
-  - "{{ user_info }}"
+     - "{{ user_info }}"
+
+
 
 - name: Add Users
   win_domain_user: 
-    name: "{{ item }}"
+    name: "{{ item.Name }}"
     firstname: "{{ item.First_Name }}"
-    lastname: "{{ item.Last_Name }}"
+    surname: "{{ item.Last_Name }}"
     password: "{{ item.Password }}"
-    email: "{{ item.Email }}" 
+    email: "{{ item.Name }}@ad1.0154.example.opentlc.com"
+    state: present 
   with_items: 
   - "{{ user_info }}" 
